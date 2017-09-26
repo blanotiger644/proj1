@@ -1,0 +1,100 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    cout<<"The code is now running."<<endl;
+
+    /* Step 1: Ask for the user's weight in pounds */
+
+    double mass(0);
+    int i(0), cbody(0);
+    cout<<"Please input your weight on Earth in pounds and press enter: ";
+    cin>>mass;
+
+    if (mass >= 0)
+    {
+    	cout<<"The mass is equal to or more than zero."<<endl;
+    	i = 1;
+    }
+    else
+    {
+    	i = 0;
+    }
+
+    while (i == 0)
+    {
+    	cout<<"The value you entered was not a positive number or zero."<<endl<<"Please input your weight on Earth in pounds and press enter: "<<endl;
+    	cin>>mass;
+    	if (mass >= 0)
+    	{
+    		cout<<"The mass is equal to or more than zero."<<endl;
+    		i = 1;
+    	}
+    }
+    cout<<endl;
+
+    /* Step 2: Show the list of all celestial bodies and let user select the body they desire */
+
+    i = 0;
+    string name[11] = {"Mercury", "Venus", "The Moon", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "Ganymede (Jupiter's Moon)", "The Sun"};
+    while (i == 0)
+    {
+    	cout<<"List of Celestial Bodies:"<<endl;
+    	for (i = 0; i != 11; i++)
+        {
+            cout<<i+1<<": "<<name[i]<<endl;
+        }
+    	cout<<"Please input the number of the celestial body you desire and press enter: ";
+    	cin>>cbody;
+    	if (cbody < 12 && cbody > 0)
+    	{
+    		i = 1;
+    	}
+    	else
+    	{
+    		cout<<"You have not entered the value of a celestial body in the list."<<endl;
+    	}
+    }
+    cout<<endl;
+
+    /* Step 3: Determine the weight of the person on that celestial body and output it */
+
+    double g, nuWeight;
+    double G(6.674E-11), a(9.81);
+    double M[11] = {3.4E23, 4.9E24, 7.55E22, 6.22E23, 1.95E27, 5.96E26, 8.73E25, 1.13E26, 1.28E22, 1.48E23, 1.890E30};
+    double d[11] = {4878E3, 12103.60E3, 3476E3, 6794E3, 142948E3, 120536E3, 51118E3, 49532E3, 2274E3, 5362E3, 1390000E3};
+    for (i = 0; i != 12; i++)
+    {
+    	if (cbody == i+1)
+    	{
+    		cout<<"Planet "<<i+1<<" Selected!"<<endl;
+    		g = G*M[i]/((d[i]/2)*(d[i]/2));
+    		nuWeight = (mass/a)*g;
+    		cout<<"Your weight on the surface of "<<name[i]<<" is: "<<nuWeight<<" pounds!"<<endl;
+            cout<<endl;
+    	}
+    }
+
+    /* Step 4: Determine the time it would take to travel to the celestial body at the speed of light, sound, and a bullet, and output the result */
+
+    double far[11] = {48E6, 25E6, 0.226E6, 34E6, 365E6, 746E6, 1700E6, 2800E6, 2760E6, 391E6, 91E6};
+    double light(6.71E8), sound(768), bullet(1362), result;
+    for (i = 0; i != 12; i++)
+    {
+        if (cbody == i+1)
+        {
+            cout<<"Calculating for "<<name[i]<<endl;
+            result = far[i]/light;
+            cout<<"At the speed of light, it would take "<<result<<" hours to get to "<<name[i]<<"."<<endl;
+            result = far[i]/sound;
+            cout<<"At the speed of sound, it would take "<<result<<" hours to get to "<<name[i]<<"."<<endl;
+            result = far[i]/bullet;
+            cout<<"At the speed of a bullet, it would take "<<result<<" hours to get to "<<name[i]<<"."<<endl;
+        }
+    }
+    cout<<endl;
+    cout<<"Thank you for using the program!"<<endl;
+    return 0;
+}
